@@ -41,7 +41,8 @@ def check_transactions(wallet_address):
         'sort': 'desc',
         'address': wallet_address,
         # 'start_timestamp': start_timestamp,
-        'start_block': start_block
+        'startblock': start_block,
+        'endblock': 4298101
     }
     response = requests.get('https://api.ftnscan.com/api', params=params).json()
     transactions = response.get('result')

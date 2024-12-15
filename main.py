@@ -47,9 +47,8 @@ def check_transactions(wallet_address):
     if transactions:
         last_tx = transactions[0]
         if last_transactions.get(wallet_address) != last_tx['hash'] and last_tx['txreceipt_status'] == '1':
-            if wallet_address == hot_wallet_address:
-                if last_tx['to'] != hot_wallet_address:
-                    return
+            if wallet_address == hot_wallet_address and last_tx['to'] != wallet_address:
+                return
             last_transactions[wallet_address] = last_tx['hash']
             message = (
                 f"🔔 <b>Новая транзакция!</b>\n"

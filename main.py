@@ -8,7 +8,7 @@ TELEGRAM_CHAT_IDS = ['717664582', '508884173']
 # TELEGRAM_CHAT_IDS = ['508884173']
 
 start_timestamp = ceil(time.time())
-start_block = 4298076
+start_block = 4297057
 
 hot_wallet_address = '0x04950aaAc4f1896A0385C85415904677CE770303'
 middle_wallet_address = '0xb63A33e7b5d5004245fd27a4Fbecd0F02d286e22'

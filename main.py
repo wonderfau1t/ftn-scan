@@ -37,6 +37,7 @@ def check_transactions(wallet_address):
     params = {
         'module': 'account',
         'action': 'txlist',
+        'sort': 'desc',
         'address': wallet_address,
         # 'start_timestamp': start_timestamp,
         'start_block': start_block
@@ -44,14 +45,14 @@ def check_transactions(wallet_address):
     response = requests.get('https://api.ftnscan.com/api', params=params).json()
     transactions = response.get('result')
     if transactions:
-        latest_hash = transactions[0]['hash']
-        if last_transactions.get(wallet_address) != latest_hash:
-            last_transactions[wallet_address] = latest_hash
+        last_tx = transactions[0]
+        if last_transactions.get(wallet_address) != last_tx['hash'] and last_tx['txreceipt_status'] == '1':
+            last_transactions[wallet_address] = last_tx['hash']
             message = (
                 f"🔔 <b>Новая транзакция!</b>\n"
                 f"Кошелек: <code>{wallet_address}</code>\n"
-                f"Hash: <code>{latest_hash}</code>\n"
-                f"Ссылка: <a href='https://www.ftnscan.com/tx/{latest_hash}'>Посмотреть</a>"
+                f"Hash: <code>{last_tx['hash']}</code>\n"
+                f"Ссылка: <a href='https://www.ftnscan.com/tx/{last_tx['hash']}'>Посмотреть</a>"
             )
             send_telegram_notification(message)
 

@@ -51,7 +51,7 @@ def check_transactions(wallet_address):
             if wallet_address == hot_wallet_address:
                 print('здесь')
                 if last_tx['to'] != wallet_address:
-                    print('tuta')
+                    print('tuta', last_tx['to'], last_tx['hash'])
                     return
             last_transactions[wallet_address] = last_tx['hash']
             message = (

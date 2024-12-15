@@ -7,7 +7,7 @@ TELEGRAM_BOT_TOKEN = '7663401015:AAEnpvk5PoMw1KXGWXnehfZUlvZ_PvPG7aE'
 TELEGRAM_CHAT_IDS = ['717664582', '508884173']
 
 start_timestamp = ceil(time.time())
-start_block = 4296576
+start_block = 4298076
 
 hot_wallet_address = '0x04950aaAc4f1896A0385C85415904677CE770303'
 middle_wallet_address = '0xb63A33e7b5d5004245fd27a4Fbecd0F02d286e22'
@@ -47,8 +47,9 @@ def check_transactions(wallet_address):
     if transactions:
         last_tx = transactions[0]
         if last_transactions.get(wallet_address) != last_tx['hash'] and last_tx['txreceipt_status'] == '1':
-            if wallet_address == hot_wallet_address and last_tx['to'] != wallet_address:
-                return
+            if wallet_address == hot_wallet_address:
+                if last_tx['to'] != wallet_address:
+                    return
             last_transactions[wallet_address] = last_tx['hash']
             message = (
                 f"🔔 <b>Новая транзакция!</b>\n"

@@ -67,15 +67,18 @@ def check_transactions(wallet_address):
                         f"Хэш: <code>{last_tx['hash']}</code>\n"
                         f"Ссылка: <a href='https://www.ftnscan.com/tx/{last_tx['hash']}'>Посмотреть</a>"
                     )
-            elif wallet_address == contract_address and last_tx['input'].startswith('0x98dcef71'):
-                amount = get_amount_of_ftn(last_tx['hash'])
-                message = (
-                    f"️⚠️ <b>С контракта разлочены FTN</b>\n"
-                    f"Адрес: <code>{last_tx['from']}</code>\n"
-                    f"Сумма: {amount:.4f} FTN\n"
-                    f"Хэш: <code>{last_tx['hash']}</code>\n"
-                    f"Ссылка: <a href='https://www.ftnscan.com/tx/{last_tx['hash']}'>Посмотреть</a>"
-                )
+            elif wallet_address == contract_address:
+                if last_tx['input'].startswith('0x98dcef71'):
+                    amount = get_amount_of_ftn(last_tx['hash'])
+                    message = (
+                        f"️⚠️ <b>С контракта разлочены FTN</b>\n"
+                        f"Адрес: <code>{last_tx['from']}</code>\n"
+                        f"Сумма: {amount:.4f} FTN\n"
+                        f"Хэш: <code>{last_tx['hash']}</code>\n"
+                        f"Ссылка: <a href='https://www.ftnscan.com/tx/{last_tx['hash']}'>Посмотреть</a>"
+                    )
+                else:
+                    return
             else:
                 message = (
                     f"🔔 <b>Что-то на промежуточном адресе происходит</b>\n"
